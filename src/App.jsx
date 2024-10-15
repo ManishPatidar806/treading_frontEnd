@@ -13,28 +13,34 @@ import Notfound from "./page/NotFound/Notfound";
 import Profile from "./page/Profile/Profile";
 import WatchList from "./page/WatchList/WatchList";
 import StockDetails from "./page/StockDetails/StockDetails";
+import Auth from "./page/Auth/Auth";
+import LoginForm from "./page/Testing/LoginForm";
 
 function App() {
   return (
     <>
-      <Navbar />
+    
+    <LoginForm/>
+      {/* <Auth /> */}
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/activity" element={<Activity />} />
-        <Route path="/wallet" element={<Wallet />} />
-        <Route path="/withdrawal" element={<Withdrawal />} />
-        <Route path="/paymentdetails" element={<PaymentDetails />} />
-        <Route path="/market/:id" element={<StockDetails />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/watchlist" element={<WatchList />} />
-
-        <Route path="/search_coin" element={<SearchCoin />} />
-        <Route path="/withdrawal_admin" element={<WithdrawalAdmin />} />
-
-        <Route path="/*" element={<Notfound />} />
-      </Routes>
+      {false && (
+        <div>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/activity" element={<Activity />} />
+            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/withdrawal" element={<Withdrawal />} />
+            <Route path="/paymentdetails" element={<PaymentDetails />} />
+            <Route path="/market/:id" element={<StockDetails />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/watchlist" element={<WatchList />} />
+            <Route path="/search_coin" element={<SearchCoin />} />
+            <Route path="/*" element={<Notfound />} />
+          </Routes>
+        </div>
+      )}
     </>
   );
 }
