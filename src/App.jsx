@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Button } from "./components/ui/button";
+
 import Home from "./page/Home/Home";
 import Navbar from "./page/Navbar/Navbar";
 import Portfolio from "./page/Portfolio/Portfolio";
@@ -8,22 +8,33 @@ import Wallet from "./page/Wallet/Wallet";
 import Withdrawal from "./page/Withdrawal/Wihtdrawal";
 import PaymentDetails from "./page/PaymentsDetails/PaymentDetails";
 import SearchCoin from "./page/Search/SearchCoin";
-import WithdrawalAdmin from "./page/Admin/WithdrawalAdmin";
+
 import Notfound from "./page/NotFound/Notfound";
 import Profile from "./page/Profile/Profile";
 import WatchList from "./page/WatchList/WatchList";
 import StockDetails from "./page/StockDetails/StockDetails";
 import Auth from "./page/Auth/Auth";
-import LoginForm from "./page/Testing/LoginForm";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { useEffect } from "react";
+import { getUser } from "./State/Auth/Action";
+
 
 function App() {
+  const {auth} = useSelector((store) => store);
+  console.log(auth.user);
+
+  const dispatch = useDispatch();
+  console.log("auth----------------", auth);
+
+  useEffect(() => {
+    dispatch(getUser(auth.jwt || localStorage.getItem("jwt")));
+  }, [auth.jwt]);
   return (
     <>
-    
-    <LoginForm/>
-      {/* <Auth /> */}
-
-      {false && (
+    {/* auth.user */}
+      {auth.jwt ? (
         <div>
           <Navbar />
           <Routes>
@@ -40,6 +51,8 @@ function App() {
             <Route path="/*" element={<Notfound />} />
           </Routes>
         </div>
+      ) : (
+        <Auth />
       )}
     </>
   );

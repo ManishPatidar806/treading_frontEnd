@@ -1,10 +1,20 @@
 import path from "path";
-import { ActivityLogIcon, BookmarkIcon, DashboardIcon, DashIcon, ExitIcon, HomeIcon, PersonIcon } from "@radix-ui/react-icons";
+import {
+  ActivityLogIcon,
+  BookmarkIcon,
+  DashboardIcon,
+  DashIcon,
+  ExitIcon,
+  HomeIcon,
+  PersonIcon,
+} from "@radix-ui/react-icons";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { SheetClose } from "@/components/ui/sheet";
 import { CreditCardIcon, LandmarkIcon, WalletIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "@/State/Auth/Action";
 
 const menu = [
   {
@@ -52,33 +62,40 @@ const menu = [
     path: "/",
     icon: <ExitIcon className="h-6 w-6" />,
   },
-
-  
 ];
 
 const Sidebar = () => {
-
   const navigate = useNavigate();
-
-  
-
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <div className="mt-10 space-y-5">
+      {menu.map((item) => (
+        <div key={item.name}>
+          <SheetClose className="w-full">
+            <Button
+              onClick={() => {navigate(item.path)
 
-        {menu.map((item)=>(
-            <div key={item.name} >
-                <SheetClose className="w-full"> 
-                <Button 
-                onClick={()=> navigate(item.path)}
-                className="flex items-center gap-5 py-6 w-full"
-            variant="outline"> <span className="w-8">{item.icon}</span>
-                <p>{item.name}</p>
-              </Button>
-             </SheetClose>
-            </div>))}
+                if(item.name=="Logout"){
+                  handleLogout()
+                }
+              }
 
-
+                
+              }
+              className="flex items-center gap-5 py-6 w-full"
+              variant="outline"
+            >
+              {" "}
+              <span className="w-8">{item.icon}</span>
+              <p>{item.name}</p>
+            </Button>
+          </SheetClose>
+        </div>
+      ))}
     </div>
   );
 };

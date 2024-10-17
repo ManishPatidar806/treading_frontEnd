@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import AssetTable from "./AssetTable";
 import StockChart from "./StockChart";
@@ -6,12 +6,15 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { DotIcon, MessageCircle, Section } from "lucide-react";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Input } from "@/components/ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { getCoinList } from "@/State/Coin/Action";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const [category, setCategory] = React.useState("all");
   const [inputValue, setInputValue] = React.useState("");
   const [isBotRelease, setIsBotRelease] = React.useState(false);
-
+  const coin  = useSelector((store) => store);
   const handleBotRelease = () => setIsBotRelease(!isBotRelease);
 
   const handleCategory = (value) => {
@@ -28,6 +31,10 @@ const Home = () => {
     }
     setInputValue("");
   };
+
+  useEffect(() => {
+    dispatch(getCoinList(1));
+  }, []);
 
   return (
     <div className="relative">
@@ -66,7 +73,7 @@ const Home = () => {
               Top Losers
             </Button>
           </div>
-          <AssetTable />
+          <AssetTable coin={coin?.coinList} category={category} />
         </div>
 
         <div className="hidden lg:block lg:w-[50%] p-5">
@@ -102,53 +109,55 @@ const Home = () => {
         </div>
       </div>
       <section className="absolute bottom-5 right-5 z-40 flex flex-col justify-end items-end gap-2">
-     {isBotRelease &&   <div
-          className="rounded-md w-[20rem] md:w-[25rem] lg:w-[25rem] h-[70vh]
+        {isBotRelease && (
+          <div
+            className="rounded-md w-[20rem] md:w-[25rem] lg:w-[25rem] h-[70vh]
                   bg-slate-900
                   "
-        >
-          <div className="flex justify-between items-center border-b px-6 h-[12%]">
-            <p>Chatbot</p>
-            <Button onClick={handleBotRelease} varient="ghost" size="icon">
-              <Cross1Icon />
-            </Button>
-          </div>
-
-          <div className="h-[76%] flex flex-col overflow-x-auto gap-5 px-5 py-2 scroll-container">
-            <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
-              <p>Ans IS RAm Patel </p>
+          >
+            <div className="flex justify-between items-center border-b px-6 h-[12%]">
+              <p>Chatbot</p>
+              <Button onClick={handleBotRelease} varient="ghost" size="icon">
+                <Cross1Icon />
+              </Button>
             </div>
 
-            {[1, 1, 1, 1, 1].map((item, i) => (
-              <div
-                key={i}
-                className={`${
-                  i % 2 == 0 ? "self-start" : "self-end"
-                } "pb-5 w-auto"`}
-              >
-                {i % 2 == 0 ? (
-                  <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
-                    <p>Who are you</p>
-                  </div>
-                ) : (
-                  <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
-                    <p>Ans IS RAm Patel </p>
-                  </div>
-                )}
+            <div className="h-[76%] flex flex-col overflow-x-auto gap-5 px-5 py-2 scroll-container">
+              <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
+                <p>Ans IS RAm Patel </p>
               </div>
-            ))}
-          </div>
 
-          <div className="h-[12%] border-t">
-            <Input
-              className="w-full h-full order-none outline-none "
-              placeholder="Write prompt"
-              onChange={handleChange}
-              value={inputValue}
-              onKeyPress={handleKeyPress}
-            />
+              {[1, 1, 1, 1, 1].map((item, i) => (
+                <div
+                  key={i}
+                  className={`${
+                    i % 2 == 0 ? "self-start" : "self-end"
+                  } "pb-5 w-auto"`}
+                >
+                  {i % 2 == 0 ? (
+                    <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
+                      <p>Who are you</p>
+                    </div>
+                  ) : (
+                    <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
+                      <p>Ans IS RAm Patel </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="h-[12%] border-t">
+              <Input
+                className="w-full h-full order-none outline-none "
+                placeholder="Write prompt"
+                onChange={handleChange}
+                value={inputValue}
+                onKeyPress={handleKeyPress}
+              />
+            </div>
           </div>
-        </div>}
+        )}
 
         <div className="relative w-[10rem] cursor-pointer group">
           <Button

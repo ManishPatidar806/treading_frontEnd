@@ -12,8 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
+import { useDispatch } from "react-redux";
+import { login } from "@/State/Auth/Action";
+import { useNavigate } from "react-router-dom";
 
 const SigninForm = () => {
+  const dispatch=useDispatch()
+  const navigate= useNavigate()
   const form = useForm({
     resolver: "",
     defaultValues: {
@@ -23,7 +28,9 @@ const SigninForm = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(login({data,navigate}))
+    console.log("Form data "+data);
+    
   };
 
   return (

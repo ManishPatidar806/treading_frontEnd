@@ -3,17 +3,18 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
+import { useDispatch } from "react-redux";
+import { register } from "@/State/Auth/Action";
 
 const SignupForm = () => {
+  const dispatch = useDispatch();
+
   const form = useForm({
     resolver: "",
     defaultValues: {
@@ -24,12 +25,13 @@ const SignupForm = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(register(data));
+    console.log("Data is ",data);
   };
 
   return (
     <div className="px-10 py-2">
-        <h1 className="text-xl font-bold text-center pb-4" >Create New Account</h1>
+      <h1 className="text-xl font-bold text-center pb-4">Create New Account</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -89,7 +91,7 @@ const SignupForm = () => {
             )}
           />
 
-          <Button type="submit" className="w-full py-5">
+          <Button type="Submit" className="w-full py-5">
             Submit
           </Button>
         </form>
