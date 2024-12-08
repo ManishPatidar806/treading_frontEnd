@@ -29,7 +29,7 @@ const AssetTable = ({ coin, category }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {coin.map((item, index) => (
+        {coin?.map((item, index) => (
           <TableRow key={item.id}>
             <TableCell
               onClick={() => navigate(`/market/${item.id}`)}

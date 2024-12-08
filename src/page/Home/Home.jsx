@@ -88,7 +88,7 @@ const Home = () => {
             </Button>
           </div>
           <AssetTable
-            coin={category == "all" ? coin.coinList : coin.getTop50CoinList}
+            coin={category == "all" ? coin.coinList : coin.top50}
             category={category}
           />
 
@@ -121,23 +121,23 @@ const Home = () => {
                 <AvatarImage
                   height={60}
                   width={60}
-                  src={
-                    "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=035"
-                  }
+                  src={coin.coinList[0].image}
                 ></AvatarImage>
               </Avatar>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <p>ETH</p>
+                <p>{coin.coinList[0].symbol.toUpperCase()}</p>
                 <DotIcon className="text-gray-400" />
-                <p className="text-gray-400">Ethereum</p>
+                <p className="text-gray-400">{coin.coinList[0].name}</p>
               </div>
               <div className="flex items-end gap-2">
-                <p className="text-xl font-bold">5464</p>
+                <p className="text-xl font-bold">
+                  ${coin.coinList[0].current_price}
+                </p>
                 <p className="text-red-600">
-                  <span>1234658.23154</span>
-                  <span>(-0.29803%)</span>
+                  <span>{coin.coinList[0].market_cap}</span>
+                  <span>({coin.coinList[0].market_cap_change_percentage_24h}%)</span>
                 </p>
               </div>
             </div>

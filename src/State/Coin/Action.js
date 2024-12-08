@@ -26,7 +26,7 @@ export const getCoinList = (page) => async (dispatch) => {
   dispatch({ type: FETCH_COIN_LIST_REQUEST });
 
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/coins?page=${page}`);
+    const { data } = await api.get(`${API_BASE_URL}/coins?page=${page}`);
 
     console.log("Coin list", data);
 
@@ -41,7 +41,7 @@ export const getTop50CoinList = () => async (dispatch) => {
   dispatch({ type: FETCH_TOP_50_COINS_REQUEST });
 
   try {
-    const response = await axios.get(`${API_BASE_URL}/coins/top50`);
+    const response = await api.get(`${API_BASE_URL}/coins/top50`);
 
     dispatch({ type: FETCH_TOP_50_COINS_SUCCESS, payload: response.data });
     console.log("top 50 ", response.data);
@@ -74,7 +74,7 @@ export const fetchCoinById = (coinId) => async (dispatch) => {
   dispatch({ type: FETCH_COIN_BY_ID_REQUEST });
 
   try {
-    const response = await axios.get(`${API_BASE_URL}/coins/${coinId}`);
+    const response = await api.get(`${API_BASE_URL}/coins/${coinId}`);
 
     dispatch({ type: FETCH_COIN_BY_ID_SUCCESS, payload: response.data });
     console.log("Fetch coin by id : ", response.data);

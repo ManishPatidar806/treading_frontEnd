@@ -12,13 +12,13 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
 } from "./ActionTypes";
-import { API_BASE_URL } from "@/config/api";
+import api, { API_BASE_URL } from "@/config/api";
 
 export const register = (userData) => async (dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
 
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
+    const response = await api.post(`${API_BASE_URL}/auth/signup`, userData);
 
     const user = response.data;
 
@@ -34,7 +34,7 @@ export const login = (userData) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
   try {
-    const response = await axios.post(
+    const response = await api.post(
       `${API_BASE_URL}/auth/signin`,
       userData
     );
@@ -55,7 +55,7 @@ export const getUser = (jwt) => async (dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
 
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/users/profile`, {
+    const response = await api.get(`${API_BASE_URL}/api/users/profile`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

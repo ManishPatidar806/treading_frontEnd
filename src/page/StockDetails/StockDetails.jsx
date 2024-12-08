@@ -22,6 +22,7 @@ import { useParams } from "react-router-dom";
 import { fetchCoinDetails } from "@/State/Coin/Action";
 import store from "@/State/Store";
 import { addItemToWatchList, getUserWatchlist } from "@/State/Watchlist/Action";
+import { existInWatchlist } from "@/utils/existInWatchlist";
 
 const StockDetails = () => {
   const { coin, watchlist } = useSelector((store) => store);

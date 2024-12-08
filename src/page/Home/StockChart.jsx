@@ -59,7 +59,7 @@ const StockChart = ({ coinId }) => {
       type: "datetime",
       tickAmount: 6,
     },
-    colors: ["#758AA2"],
+    colors: [" #1975ff"],
     markers: {
       colors: ["#fff"],
       strokeColor: "#fff",
@@ -74,7 +74,7 @@ const StockChart = ({ coinId }) => {
     fill: {
       type: "gradient",
       gradient: {
-        shadeIntensity: 1,
+        shadeIntensity: 0,
         opacityFrom: 0.7,
         opacityTo: 0.9,
         stops: [0, 100],
